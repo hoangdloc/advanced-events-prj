@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import AddressIcon from "../icons/address-icon";
 import DateIcon from "../icons/date-icon";
 import classes from "./event-logistics.module.css";
@@ -24,9 +25,11 @@ const EventLogistics = (props: EventLogisticsProps): JSX.Element => {
   return (
     <section className={classes.logistics}>
       <div className={classes.image}>
-        <img
+        <Image
           src={`/${image}`}
           alt={imageAlt}
+          height={400}
+          width={400}
         />
       </div>
       <ul className={classes.list}>

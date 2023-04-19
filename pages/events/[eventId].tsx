@@ -4,6 +4,7 @@ import EventSummary from "@/components/event-detail/event-summary";
 import { getEventById, getFeaturedEvents } from "@/helpers/api-utils";
 import { Event } from "@/types/event";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
 import { Fragment } from "react";
 
 interface EventDetailPageProps {
@@ -23,6 +24,13 @@ const EventDetailPage = (props: EventDetailPageProps): JSX.Element => {
 
   return (
     <Fragment>
+      <Head>
+        <title>{event.title}</title>
+        <meta
+          name="description"
+          content={event.description}
+        />
+      </Head>
       <EventSummary title={event.title} />
       <EventLogistics
         date={event.date}
@@ -57,7 +65,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: 'blocking'
+    fallback: "blocking"
   };
 };
 

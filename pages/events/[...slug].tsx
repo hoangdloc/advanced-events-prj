@@ -5,6 +5,7 @@ import ErrorAlert from "@/components/ui/error-alert";
 import { getFilteredEvents } from "@/helpers/api-utils";
 import { Event } from "@/types/event";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import Head from "next/head";
 import { ParsedUrlQuery } from "querystring";
 import { Fragment } from "react";
 
@@ -18,9 +19,20 @@ interface FilteredEventsPageProps {
 }
 
 const FilteredEventsPage = (props: FilteredEventsPageProps): JSX.Element => {
+  const pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta
+        name="description"
+        content={`All events for ${props.date.month}/${props.date.year}.`}
+      />
+    </Head>
+  );
+
   if (props.hasError) {
     return (
       <Fragment>
+        {pageHeadData}
         <ErrorAlert>
           <p>Invalid filter. Please adjust your values!</p>
         </ErrorAlert>
@@ -36,6 +48,7 @@ const FilteredEventsPage = (props: FilteredEventsPageProps): JSX.Element => {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <Fragment>
+        {pageHeadData}
         <ErrorAlert>
           <p>No events found for the chosen filter!</p>
         </ErrorAlert>
@@ -50,6 +63,7 @@ const FilteredEventsPage = (props: FilteredEventsPageProps): JSX.Element => {
 
   return (
     <Fragment>
+      {pageHeadData}
       <ResultsTitle date={date} />
       <EventList items={filteredEvents} />
     </Fragment>
